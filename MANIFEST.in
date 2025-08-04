@@ -1,0 +1,19 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include pyproject.toml
+include setup.py
+recursive-include quantum_hyper_search *.py
+recursive-include examples *.py *.ipynb *.md
+recursive-include tests *.py
+recursive-include docs *.md *.rst *.txt
+recursive-include docs/source *.rst *.py
+recursive-include docs/source/_static *
+prune quantum_hyper_search/__pycache__
+prune tests/__pycache__
+prune build
+prune dist
+prune *.egg-info
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
