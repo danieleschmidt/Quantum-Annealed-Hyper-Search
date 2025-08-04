@@ -26,7 +26,7 @@ pip install quantum-annealed-hyper-search[dwave]
 pip install quantum-annealed-hyper-search[all]
 
 # Development installation
-git clone https://github.com/yourusername/Quantum-Annealed-Hyper-Search.git
+git clone https://github.com/danieleschmidt/Quantum-Annealed-Hyper-Search.git
 cd Quantum-Annealed-Hyper-Search
 pip install -e ".[dev,simulators]"
 ```
@@ -557,7 +557,7 @@ register_backend('custom_quantum', CustomQuantumSolver)
 ```bibtex
 @article{quantum_hyperparameter2025,
   title={Quantum Annealing for Hyperparameter Optimization in Machine Learning},
-  author={Your Name et al.},
+  author={Daniel},
   journal={Nature Machine Intelligence},
   year={2025},
   doi={10.1038/s42256-025-XXXXX}
