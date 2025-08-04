@@ -1,0 +1,99 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantum-annealed-hyper-search"
+version = "0.1.0"
+description = "Hybrid quantum-classical library for hyperparameter optimization using D-Wave quantum annealers"
+authors = [
+    {name = "Daniel Schmidt", email = "daniel@terragonlabs.com"}
+]
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+keywords = ["quantum", "optimization", "hyperparameter", "machine-learning", "d-wave"]
+
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "scikit-learn>=1.0.0",
+    "dwave-ocean-sdk>=6.0.0",
+    "dimod>=0.12.0",
+    "networkx>=2.6",
+    "matplotlib>=3.5.0",
+    "pandas>=1.3.0",
+    "joblib>=1.1.0",
+    "tqdm>=4.62.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "isort>=5.10.0",
+    "flake8>=5.0.0",
+    "mypy>=0.991",
+    "pre-commit>=2.20.0",
+]
+dwave = [
+    "dwave-system>=1.19.0",
+    "dwave-hybrid>=0.6.0",
+    "dwave-preprocessing>=0.6.0",
+]
+simulators = [
+    "dwave-neal>=0.6.0",
+    "qbsolv>=0.3.0",
+]
+optuna = [
+    "optuna>=3.0.0",
+]
+ray = [
+    "ray[tune]>=2.0.0",
+]
+all = [
+    "quantum-annealed-hyper-search[dev,dwave,simulators,optuna,ray]"
+]
+
+[project.urls]
+Homepage = "https://github.com/danieleschmidt/quantum-annealed-hyper-search"
+Documentation = "https://quantum-hyper-search.readthedocs.io"
+Repository = "https://github.com/danieleschmidt/quantum-annealed-hyper-search"
+Issues = "https://github.com/danieleschmidt/quantum-annealed-hyper-search/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["quantum_hyper_search*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=quantum_hyper_search --cov-report=html --cov-report=term-missing"
