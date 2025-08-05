@@ -1,14 +1,14 @@
 {
   "scan_metadata": {
-    "timestamp": "2025-08-05T00:39:22.523218",
-    "duration_seconds": 0.3006417751312256,
-    "files_scanned": 32,
+    "timestamp": "2025-08-05T01:50:43.465056",
+    "duration_seconds": 0.4333789348602295,
+    "files_scanned": 45,
     "scanner_version": "1.0.0"
   },
   "summary": {
-    "total_issues": 128,
+    "total_issues": 131,
     "critical_issues": 7,
-    "high_issues": 6,
+    "high_issues": 9,
     "medium_issues": 1,
     "low_issues": 114,
     "info_issues": 0,
@@ -18,11 +18,11 @@
       "command_injection": 1,
       "deserialization": 1,
       "dangerous_import": 1,
-      "config_secret": 3,
+      "config_secret": 6,
       "dependency_management": 114
     },
-    "files_scanned": 32,
-    "scan_duration": 0.3006417751312256
+    "files_scanned": 45,
+    "scan_duration": 0.4333789348602295
   },
   "issues": [
     {
@@ -42,16 +42,6 @@
       "file_path": "setup.py",
       "line_number": 17,
       "code_snippet": "",
-      "recommendation": "",
-      "cwe_id": "CWE-95"
-    },
-    {
-      "severity": "critical",
-      "category": "code_injection",
-      "description": "Use of exec() function - code injection risk",
-      "file_path": "tests/test_comprehensive.py",
-      "line_number": 386,
-      "code_snippet": "sanitize_parameters({'param': 'exec(\"print(1)\")'})",
       "recommendation": "",
       "cwe_id": "CWE-95"
     },
@@ -98,6 +88,16 @@
     {
       "severity": "critical",
       "category": "code_injection",
+      "description": "Use of exec() function - code injection risk",
+      "file_path": "tests/test_comprehensive.py",
+      "line_number": 386,
+      "code_snippet": "sanitize_parameters({'param': 'exec(\"print(1)\")'})",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
       "description": "Use of eval() function - code injection risk",
       "file_path": "quantum_hyper_search/core/qubo_formulation.py",
       "line_number": 122,
@@ -134,6 +134,36 @@
       "code_snippet": "",
       "recommendation": "",
       "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 144,
+      "code_snippet": "\"code_snippet\": \"- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 154,
+      "code_snippet": "\"code_snippet\": \"- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 164,
+      "code_snippet": "\"code_snippet\": \"- JUPYTER_TOKEN=${JUPYTER_TOKEN:-quantum123}\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
     },
     {
       "severity": "high",

@@ -43,7 +43,7 @@ class TestQuantumHyperSearch:
         qhs = QuantumHyperSearch()
         assert qhs.backend_name == "simulator"
         assert qhs.enable_logging == True
-        assert qhs.enable_monitoring == True
+        assert qhs.monitor is not None
         assert qhs.enable_security == True
     
     def test_initialization_custom(self):

@@ -525,8 +525,10 @@ class QuantumHyperSearch:
                 objective_function, iteration, **model_kwargs
             )
         
-        # Create evaluation tasks
+        # Create evaluation tasks and collect cached results
         tasks = []
+        cached_results = []
+        
         for i, params in enumerate(param_configs):
             # Check cache first
             if self.cache:
@@ -543,6 +545,7 @@ class QuantumHyperSearch:
                         score=cached_result,
                         success=True
                     )
+                    cached_results.append(result)
                     continue
             
             # Create evaluation task
@@ -559,21 +562,22 @@ class QuantumHyperSearch:
             tasks.append(task)
         
         # Evaluate in parallel
+        results = cached_results.copy()  # Start with cached results
+        
         if tasks:
-            results = self.parallel_evaluator.evaluate_batch(tasks)
+            new_results = self.parallel_evaluator.evaluate_batch(tasks)
+            results.extend(new_results)
             
             # Cache successful results
             if self.cache:
-                for result in results:
+                for result in new_results:
                     if result.success:
                         cache_key = generate_cache_key(
                             result.parameters, model_class, X.shape, y.shape, cv_folds, scoring
                         )
                         self.cache.put(cache_key, result.score, result.computation_time)
-            
-            return results
-        else:
-            return []
+        
+        return results
     
     def _evaluate_sequential(
         self,
