@@ -10,11 +10,30 @@ readme_path = os.path.join(os.path.dirname(__file__), 'README.md')
 with open(readme_path, 'r', encoding='utf-8') as f:
     long_description = f.read()
 
-# Read version from package
-version = {}
-version_path = os.path.join(os.path.dirname(__file__), 'quantum_hyper_search', '__init__.py')
-with open(version_path) as f:
-    exec(f.read(), version)
+# Read version from package safely
+import re
+
+def get_version():
+    """Safely extract version from __init__.py"""
+    version_path = os.path.join(os.path.dirname(__file__), 'quantum_hyper_search', '__init__.py')
+    with open(version_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Extract version using regex instead of exec
+    version_match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', content, re.MULTILINE)
+    author_match = re.search(r'^__author__\s*=\s*[\'"]([^\'"]*)[\'"]', content, re.MULTILINE)
+    email_match = re.search(r'^__email__\s*=\s*[\'"]([^\'"]*)[\'"]', content, re.MULTILINE)
+    
+    if not version_match:
+        raise RuntimeError("Unable to find version string.")
+    
+    return {
+        '__version__': version_match.group(1),
+        '__author__': author_match.group(1) if author_match else "Daniel Schmidt",
+        '__email__': email_match.group(1) if email_match else "daniel@example.com"
+    }
+
+version = get_version()
 
 setup(
     name="quantum-annealed-hyper-search",
