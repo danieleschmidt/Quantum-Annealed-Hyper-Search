@@ -557,7 +557,7 @@ register_backend('custom_quantum', CustomQuantumSolver)
 ```bibtex
 @article{quantum_hyperparameter2025,
   title={Quantum Annealing for Hyperparameter Optimization in Machine Learning},
-  author={Daniel},
+  author={Daniel Schmidt},
   journal={Nature Machine Intelligence},
   year={2025},
   doi={10.1038/s42256-025-XXXXX}
