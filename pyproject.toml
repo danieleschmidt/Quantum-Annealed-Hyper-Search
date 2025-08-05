@@ -1,17 +1,33 @@
+```toml
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "quantum-annealed-hyper-search"
 version = "0.1.0"
 description = "Hybrid quantum-classical library for hyperparameter optimization using D-Wave quantum annealers"
 authors = [
-    {name = "Daniel Schmidt", email = "daniel@example.com"},
+    {name = "Daniel Schmidt", email = "daniel@terragonlabs.com"}
 ]
 readme = "README.md"
-license = {file = "LICENSE"}
+license = {text = "Apache-2.0"}
 requires-python = ">=3.8"
+keywords = ["quantum", "machine-learning", "hyperparameter-optimization", "d-wave", "annealing", "optimization", "hyperparameter"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
 dependencies = [
     "numpy>=1.21.0",
     "scipy>=1.7.0",
@@ -22,32 +38,24 @@ dependencies = [
     "tqdm>=4.62.0",
     "pydantic>=1.8.0",
     "typing-extensions>=4.0.0",
-]
-keywords = ["quantum", "machine-learning", "hyperparameter-optimization", "d-wave", "annealing"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Scientific/Engineering :: Physics",
+    "dwave-ocean-sdk>=6.0.0",
+    "dimod>=0.12.0",
+    "networkx>=2.6",
+    "joblib>=1.1.0",
 ]
 
 [project.optional-dependencies]
 dwave = [
-    "dwave-ocean-sdk>=6.0.0",
-    "dimod>=0.12.0",
     "dwave-system>=1.19.0",
     "dwave-hybrid>=0.6.0",
+    "dwave-preprocessing>=0.6.0",
     "minorminer>=0.2.0",
 ]
 simulators = [
+    "dwave-neal>=0.6.0",
     "neal>=0.5.9",
     "tabu>=0.1.0",
+    "qbsolv>=0.3.0",
 ]
 optimizers = [
     "optuna>=3.0.0",
@@ -67,24 +75,25 @@ dev = [
     "black>=22.0.0",
     "isort>=5.10.0",
     "flake8>=5.0.0",
-    "mypy>=0.990",
+    "mypy>=0.991",
     "pre-commit>=2.20.0",
     "sphinx>=5.0.0",
     "sphinx-rtd-theme>=1.0.0",
     "jupyter>=1.0.0",
 ]
 all = [
-    "quantum-annealed-hyper-search[dwave,simulators,optimizers,ml]",
+    "quantum-annealed-hyper-search[dwave,simulators,optimizers,ml,dev]"
 ]
 
 [project.urls]
 Homepage = "https://github.com/danieleschmidt/quantum-annealed-hyper-search"
 Documentation = "https://quantum-hyper-search.readthedocs.io"
-Repository = "https://github.com/danieleschmidt/quantum-annealed-hyper-search.git"
+Repository = "https://github.com/danieleschmidt/quantum-annealed-hyper-search"
 Issues = "https://github.com/danieleschmidt/quantum-annealed-hyper-search/issues"
 
-[tool.hatch.build.targets.wheel]
-packages = ["quantum_hyper_search"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["quantum_hyper_search*"]
 
 [tool.black]
 line-length = 88
@@ -159,3 +168,4 @@ exclude_lines = [
     "raise NotImplementedError",
     "if __name__ == .__main__.:",
 ]
+```

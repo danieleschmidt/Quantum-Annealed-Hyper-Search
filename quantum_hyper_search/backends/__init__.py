@@ -3,11 +3,12 @@ Quantum backend implementations for different hardware and simulators.
 """
 
 from typing import Dict, Type
-from .base_backend import BaseBackend
-from .simulator import SimulatorBackend
+from .base_backend import QuantumBackend
+from .simulator_backend import SimulatorBackend
+from .backend_factory import get_backend
 
 # Registry of available backends
-_BACKENDS: Dict[str, Type[BaseBackend]] = {
+_BACKENDS: Dict[str, Type[QuantumBackend]] = {
     "simulator": SimulatorBackend,
 }
 
@@ -18,34 +19,11 @@ try:
 except ImportError:
     pass
 
-try:
-    from .neal_backend import NealBackend
-    _BACKENDS["neal"] = NealBackend
-except ImportError:
-    pass
+# Neal backend is actually the SimulatorBackend
+_BACKENDS["neal"] = SimulatorBackend
 
 
-def get_backend(backend_name: str) -> Type[BaseBackend]:
-    """
-    Get backend class by name.
-    
-    Args:
-        backend_name: Name of the backend
-        
-    Returns:
-        Backend class
-        
-    Raises:
-        ValueError: If backend is not available
-    """
-    if backend_name not in _BACKENDS:
-        available = list(_BACKENDS.keys())
-        raise ValueError(f"Backend '{backend_name}' not available. Available: {available}")
-    
-    return _BACKENDS[backend_name]
-
-
-def register_backend(name: str, backend_class: Type[BaseBackend]) -> None:
+def register_backend(name: str, backend_class: Type[QuantumBackend]) -> None:
     """
     Register a new backend.
     
@@ -78,6 +56,6 @@ __all__ = [
     "get_backend",
     "register_backend", 
     "list_backends",
-    "BaseBackend",
+    "QuantumBackend",
     "SimulatorBackend",
 ]

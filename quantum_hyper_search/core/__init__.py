@@ -1,13 +1,19 @@
+```python
 """
 Core quantum algorithms and QUBO formulation components.
 """
 
 from .base import QuantumBackend
-from .qubo_formulation import QUBOEncoder
+from .quantum_hyper_search import QuantumHyperSearch
+from .qubo_encoder import QUBOEncoder
+from .qubo_formulation import QUBOEncoder as QUBOFormulation
 from .optimization_history import OptimizationHistory
 
 __all__ = [
     "QuantumBackend",
-    "QUBOEncoder", 
+    "QuantumHyperSearch",
+    "QUBOEncoder",
+    "QUBOFormulation",
     "OptimizationHistory",
 ]
+```
