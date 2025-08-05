@@ -217,18 +217,18 @@ class HealthChecker:
         self.checks = []
         self.alerts = []
         
-    def add_check(self, name: str, check_func: Callable[[], bool], critical: bool = False):
+    def add_check(self, name: str, func: Callable[[], bool], critical: bool = False):
         """
         Add health check.
         
         Args:
             name: Check name
-            check_func: Function that returns True if healthy
+            func: Function that returns True if healthy
             critical: Whether failure should stop optimization
         """
         self.checks.append({
             'name': name,
-            'func': check_func,
+            'func': func,
             'critical': critical,
             'last_result': None,
             'last_check': None
