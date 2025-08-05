@@ -1,15 +1,44 @@
+```dockerfile
 # Multi-stage Dockerfile for Quantum Annealed Hyperparameter Search
+
+# Build stage
+FROM python:3.9-slim as builder
+
+# Set build arguments
+ARG BUILDPLATFORM
+ARG TARGETPLATFORM
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY pyproject.toml setup.cfg README.md ./
+COPY quantum_hyper_search/ quantum_hyper_search/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip wheel setuptools && \
+    pip install --no-cache-dir -e ".[simulators,monitoring]"
+
+# Base stage
 FROM python:3.9-slim as base
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONPATH=/app
 
-# Install system dependencies
+# Install runtime dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    libgomp1 \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,17 +52,18 @@ FROM base as development
 RUN apt-get update && apt-get install -y \
     git \
     vim \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Set work directory
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY pyproject.toml setup.py ./
+COPY pyproject.toml setup.cfg setup.py ./
 COPY quantum_hyper_search/__init__.py quantum_hyper_search/
 
 # Install Python dependencies
-RUN pip install -e ".[dev,simulators]"
+RUN pip install -e ".[dev,simulators,monitoring]"
 
 # Copy source code
 COPY . .
@@ -51,15 +81,13 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-r
 # Production stage
 FROM base as production
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Copy requirements first for better caching
-COPY pyproject.toml setup.py ./
-COPY quantum_hyper_search/__init__.py quantum_hyper_search/
-
-# Install Python dependencies (production only)
-RUN pip install -e ".[simulators]"
+# Copy installed packages from builder
+COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+COPY --from=builder /app/ /app/
 
 # Copy source code
 COPY quantum_hyper_search quantum_hyper_search/
@@ -72,8 +100,8 @@ RUN mkdir -p /app/cache /app/logs && \
 USER appuser
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD python -c "from quantum_hyper_search import QuantumHyperSearch; print('OK')" || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -m quantum_hyper_search.monitoring.health_check --quiet || exit 1
 
 # Default command
 CMD ["python", "-m", "quantum_hyper_search.examples.basic_usage"]
@@ -105,3 +133,9 @@ EXPOSE 8000
 COPY api/ api/
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Labels
+LABEL maintainer="Daniel Schmidt <daniel@terragonlabs.com>"
+LABEL version="0.1.0"
+LABEL description="Quantum-Annealed Hyperparameter Search"
+```
