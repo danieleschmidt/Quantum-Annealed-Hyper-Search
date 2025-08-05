@@ -1,0 +1,1309 @@
+{
+  "scan_metadata": {
+    "timestamp": "2025-08-05T00:39:22.523218",
+    "duration_seconds": 0.3006417751312256,
+    "files_scanned": 32,
+    "scanner_version": "1.0.0"
+  },
+  "summary": {
+    "total_issues": 128,
+    "critical_issues": 7,
+    "high_issues": 6,
+    "medium_issues": 1,
+    "low_issues": 114,
+    "info_issues": 0,
+    "categories": {
+      "code_injection": 6,
+      "dangerous_function": 2,
+      "command_injection": 1,
+      "deserialization": 1,
+      "dangerous_import": 1,
+      "config_secret": 3,
+      "dependency_management": 114
+    },
+    "files_scanned": 32,
+    "scan_duration": 0.3006417751312256
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of exec() function - code injection risk",
+      "file_path": "setup.py",
+      "line_number": 17,
+      "code_snippet": "exec(f.read(), version)",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "dangerous_function",
+      "description": "Use of dangerous function: exec",
+      "file_path": "setup.py",
+      "line_number": 17,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of exec() function - code injection risk",
+      "file_path": "tests/test_comprehensive.py",
+      "line_number": 386,
+      "code_snippet": "sanitize_parameters({'param': 'exec(\"print(1)\")'})",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of eval() function - code injection risk",
+      "file_path": "scripts/security_scan.py",
+      "line_number": 76,
+      "code_snippet": "'description': 'Use of eval() function - code injection risk',",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of exec() function - code injection risk",
+      "file_path": "scripts/security_scan.py",
+      "line_number": 82,
+      "code_snippet": "'description': 'Use of exec() function - code injection risk',",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "scripts/security_scan.py",
+      "line_number": 88,
+      "code_snippet": "'description': 'Use of compile() function - potential code injection',",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "command_injection",
+      "description": "Use of os.system() - command injection risk",
+      "file_path": "scripts/security_scan.py",
+      "line_number": 130,
+      "code_snippet": "'description': 'Use of os.system() - command injection risk',",
+      "recommendation": "",
+      "cwe_id": "CWE-78"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of eval() function - code injection risk",
+      "file_path": "quantum_hyper_search/core/qubo_formulation.py",
+      "line_number": 122,
+      "code_snippet": "param_config = dict(eval(param_config_str))",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "dangerous_function",
+      "description": "Use of dangerous function: eval",
+      "file_path": "quantum_hyper_search/core/qubo_formulation.py",
+      "line_number": 122,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "deserialization",
+      "description": "Use of pickle - deserialization vulnerability",
+      "file_path": "quantum_hyper_search/optimization/caching.py",
+      "line_number": 186,
+      "code_snippet": "entry = pickle.load(f)",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "medium",
+      "category": "dangerous_import",
+      "description": "Import of potentially dangerous module: pickle",
+      "file_path": "quantum_hyper_search/optimization/caching.py",
+      "line_number": 6,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "docker-compose.yml",
+      "line_number": 40,
+      "code_snippet": "- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "docker-compose.yml",
+      "line_number": 116,
+      "code_snippet": "- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "docker-compose.yml",
+      "line_number": 135,
+      "code_snippet": "- JUPYTER_TOKEN=${JUPYTER_TOKEN:-quantum123}",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 1,
+      "code_snippet": "[build-system]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 2,
+      "code_snippet": "requires = [\"hatchling\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 3,
+      "code_snippet": "build-backend = \"hatchling.build\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 5,
+      "code_snippet": "[project]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 6,
+      "code_snippet": "name = \"quantum-annealed-hyper-search\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 7,
+      "code_snippet": "version = \"0.1.0\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 8,
+      "code_snippet": "description = \"Hybrid quantum-classical library for hyperparameter optimization using D-Wave quantum annealers\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 9,
+      "code_snippet": "authors = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 10,
+      "code_snippet": "{name = \"Daniel Schmidt\", email = \"daniel@example.com\"},",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 11,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 12,
+      "code_snippet": "readme = \"README.md\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 13,
+      "code_snippet": "license = {file = \"LICENSE\"}",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 15,
+      "code_snippet": "dependencies = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 25,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 26,
+      "code_snippet": "keywords = [\"quantum\", \"machine-learning\", \"hyperparameter-optimization\", \"d-wave\", \"annealing\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 27,
+      "code_snippet": "classifiers = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 28,
+      "code_snippet": "\"Development Status :: 3 - Alpha\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 29,
+      "code_snippet": "\"Intended Audience :: Science/Research\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 30,
+      "code_snippet": "\"License :: OSI Approved :: MIT License\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 31,
+      "code_snippet": "\"Programming Language :: Python :: 3\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 32,
+      "code_snippet": "\"Programming Language :: Python :: 3.8\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 33,
+      "code_snippet": "\"Programming Language :: Python :: 3.9\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 34,
+      "code_snippet": "\"Programming Language :: Python :: 3.10\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 35,
+      "code_snippet": "\"Programming Language :: Python :: 3.11\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 36,
+      "code_snippet": "\"Topic :: Scientific/Engineering :: Artificial Intelligence\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 37,
+      "code_snippet": "\"Topic :: Scientific/Engineering :: Physics\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 38,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 40,
+      "code_snippet": "[project.optional-dependencies]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 41,
+      "code_snippet": "dwave = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 47,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 48,
+      "code_snippet": "simulators = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 51,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 52,
+      "code_snippet": "optimizers = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 57,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 58,
+      "code_snippet": "ml = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 63,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 64,
+      "code_snippet": "dev = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 75,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 76,
+      "code_snippet": "all = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 77,
+      "code_snippet": "\"quantum-annealed-hyper-search[dwave,simulators,optimizers,ml]\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 78,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 80,
+      "code_snippet": "[project.urls]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 81,
+      "code_snippet": "Homepage = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 82,
+      "code_snippet": "Documentation = \"https://quantum-hyper-search.readthedocs.io\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 83,
+      "code_snippet": "Repository = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search.git\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 84,
+      "code_snippet": "Issues = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search/issues\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 86,
+      "code_snippet": "[tool.hatch.build.targets.wheel]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 87,
+      "code_snippet": "packages = [\"quantum_hyper_search\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 89,
+      "code_snippet": "[tool.black]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 90,
+      "code_snippet": "line-length = 88",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 91,
+      "code_snippet": "target-version = ['py38']",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 92,
+      "code_snippet": "include = '\\.pyi?$'",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 93,
+      "code_snippet": "extend-exclude = '''",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 94,
+      "code_snippet": "/(",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 96,
+      "code_snippet": "build/",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 97,
+      "code_snippet": "| dist/",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 98,
+      "code_snippet": "| \\.git/",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 99,
+      "code_snippet": "| \\.venv/",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 100,
+      "code_snippet": ")/",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 101,
+      "code_snippet": "'''",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 103,
+      "code_snippet": "[tool.isort]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 104,
+      "code_snippet": "profile = \"black\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 105,
+      "code_snippet": "line_length = 88",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 106,
+      "code_snippet": "multi_line_output = 3",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 107,
+      "code_snippet": "include_trailing_comma = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 108,
+      "code_snippet": "force_grid_wrap = 0",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 109,
+      "code_snippet": "use_parentheses = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 110,
+      "code_snippet": "ensure_newline_before_comments = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 112,
+      "code_snippet": "[tool.mypy]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 113,
+      "code_snippet": "python_version = \"3.8\"",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 114,
+      "code_snippet": "warn_return_any = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 115,
+      "code_snippet": "warn_unused_configs = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 116,
+      "code_snippet": "disallow_untyped_defs = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 117,
+      "code_snippet": "disallow_incomplete_defs = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 118,
+      "code_snippet": "check_untyped_defs = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 119,
+      "code_snippet": "disallow_untyped_decorators = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 120,
+      "code_snippet": "no_implicit_optional = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 121,
+      "code_snippet": "warn_redundant_casts = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 122,
+      "code_snippet": "warn_unused_ignores = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 123,
+      "code_snippet": "warn_no_return = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 124,
+      "code_snippet": "warn_unreachable = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 125,
+      "code_snippet": "strict_equality = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 127,
+      "code_snippet": "[tool.pytest.ini_options]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 128,
+      "code_snippet": "testpaths = [\"tests\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 129,
+      "code_snippet": "python_files = [\"test_*.py\", \"*_test.py\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 130,
+      "code_snippet": "python_classes = [\"Test*\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 131,
+      "code_snippet": "python_functions = [\"test_*\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 132,
+      "code_snippet": "addopts = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 133,
+      "code_snippet": "\"--cov=quantum_hyper_search\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 134,
+      "code_snippet": "\"--cov-report=term-missing\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 135,
+      "code_snippet": "\"--cov-report=html\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 136,
+      "code_snippet": "\"--cov-report=xml\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 137,
+      "code_snippet": "\"--strict-markers\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 138,
+      "code_snippet": "\"--disable-warnings\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 139,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 140,
+      "code_snippet": "markers = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 141,
+      "code_snippet": "\"slow: marks tests as slow\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 142,
+      "code_snippet": "\"integration: marks tests as integration tests\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 143,
+      "code_snippet": "\"quantum: marks tests that require quantum hardware\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 144,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 146,
+      "code_snippet": "[tool.coverage.run]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 147,
+      "code_snippet": "source = [\"quantum_hyper_search\"]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 148,
+      "code_snippet": "omit = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 149,
+      "code_snippet": "\"*/tests/*\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 150,
+      "code_snippet": "\"*/test_*\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 151,
+      "code_snippet": "\"setup.py\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 152,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 154,
+      "code_snippet": "[tool.coverage.report]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 155,
+      "code_snippet": "exclude_lines = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 156,
+      "code_snippet": "\"pragma: no cover\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 157,
+      "code_snippet": "\"def __repr__\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 158,
+      "code_snippet": "\"raise AssertionError\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 159,
+      "code_snippet": "\"raise NotImplementedError\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 161,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    }
+  ]
+}
