@@ -5,7 +5,13 @@ Abstract base class for quantum computing backends.
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 import numpy as np
-import dimod
+
+# Optional dimod import for full functionality
+try:
+    import dimod
+    DIMOD_AVAILABLE = True
+except ImportError:
+    DIMOD_AVAILABLE = False
 
 
 class QuantumBackend(ABC):
@@ -21,17 +27,17 @@ class QuantumBackend(ABC):
         Q: Dict[tuple, float],
         num_reads: int = 1000,
         **kwargs
-    ) -> dimod.SampleSet:
+    ) -> Any:
         """
         Sample from a QUBO problem.
         
         Args:
             Q: QUBO matrix as dictionary of {(i,j): weight}
             num_reads: Number of samples to generate
-            **kwargs: Backend-specific parameters
+            **kwargs: Additional sampling parameters
             
         Returns:
-            SampleSet containing the results
+            Sample set (format depends on backend implementation)
         """
         pass
     

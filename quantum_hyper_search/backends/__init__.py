@@ -4,23 +4,31 @@ Quantum backend implementations for different hardware and simulators.
 
 from typing import Dict, Type
 from .base_backend import QuantumBackend
-from .simulator_backend import SimulatorBackend
 from .backend_factory import get_backend
 
 # Registry of available backends
-_BACKENDS: Dict[str, Type[QuantumBackend]] = {
-    "simulator": SimulatorBackend,
-}
+_BACKENDS: Dict[str, Type[QuantumBackend]] = {}
 
 # Conditional imports for optional dependencies
+try:
+    from .simulator_backend import SimulatorBackend
+    _BACKENDS["simulator"] = SimulatorBackend
+    _BACKENDS["neal"] = SimulatorBackend  # Neal is just SimulatorBackend
+except ImportError:
+    pass
+
 try:
     from .dwave_backend import DWaveBackend
     _BACKENDS["dwave"] = DWaveBackend
 except ImportError:
     pass
 
-# Neal backend is actually the SimulatorBackend
-_BACKENDS["neal"] = SimulatorBackend
+# Always include simple simulator
+try:
+    from .simple_simulator import SimpleSimulatorBackend
+    _BACKENDS["simple"] = SimpleSimulatorBackend
+except ImportError:
+    pass
 
 
 def register_backend(name: str, backend_class: Type[QuantumBackend]) -> None:
@@ -57,5 +65,4 @@ __all__ = [
     "register_backend", 
     "list_backends",
     "QuantumBackend",
-    "SimulatorBackend",
 ]
