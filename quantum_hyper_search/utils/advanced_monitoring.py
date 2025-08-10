@@ -48,6 +48,20 @@ class PerformanceMetrics:
     """Performance metrics for monitoring."""
     cpu_usage: float = 0.0
     memory_usage: float = 0.0
+    
+    # Quantum-specific metrics
+    quantum_volume: Optional[int] = None
+    qubit_count: Optional[int] = None
+    gate_fidelity: Optional[float] = None
+    coherence_time: Optional[float] = None
+    quantum_advantage_ratio: Optional[float] = None
+    embedding_overhead: Optional[float] = None
+    ground_state_probability: Optional[float] = None
+    
+    # QUBO-specific metrics  
+    qubo_density: Optional[float] = None
+    chain_length: Optional[float] = None
+    annealing_time: Optional[float] = None
     quantum_queue_length: int = 0
     evaluation_rate: float = 0.0
     error_rate: float = 0.0
