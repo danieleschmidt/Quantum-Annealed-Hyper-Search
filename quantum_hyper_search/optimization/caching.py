@@ -1,4 +1,3 @@
-```python
 """
 Intelligent caching system for quantum hyperparameter search results.
 """
@@ -888,4 +887,3 @@ def configure_global_cache(
         max_memory_entries=max_memory_entries
     )
     return _global_cache
-```

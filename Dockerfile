@@ -1,141 +1,111 @@
-```dockerfile
-# Multi-stage Dockerfile for Quantum Annealed Hyperparameter Search
+# Quantum Hyperparameter Search - Production Docker Image
+# Multi-stage build for optimized production deployment
 
-# Build stage
-FROM python:3.9-slim as builder
+# Stage 1: Build environment
+FROM python:3.11-slim as builder
 
 # Set build arguments
-ARG BUILDPLATFORM
-ARG TARGETPLATFORM
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gcc \
-    g++ \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
-WORKDIR /app
-
-# Copy requirements first for better caching
-COPY pyproject.toml setup.cfg README.md ./
-COPY quantum_hyper_search/ quantum_hyper_search/
-
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip wheel setuptools && \
-    pip install --no-cache-dir -e ".[simulators,monitoring]"
-
-# Base stage
-FROM python:3.9-slim as base
+ARG QUANTUM_BACKEND=simulator
+ARG BUILD_ENV=production
+ARG ENABLE_GPU=false
 
 # Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PIP_NO_CACHE_DIR=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install runtime dependencies
+# Install system dependencies for building
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    curl \
+    wget \
+    pkg-config \
+    libhdf5-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    gfortran \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Upgrade pip and install wheel
+RUN pip install --upgrade pip setuptools wheel
+
+# Copy requirements and install dependencies
+COPY requirements.txt setup.py ./
+COPY quantum_hyper_search/ ./quantum_hyper_search/
+
+# Install the package and dependencies
+RUN pip install -e .[all]
+
+# Stage 2: Production runtime
+FROM python:3.11-slim as runtime
+
+# Set production environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV QHS_ENV=production
+ENV QHS_LOG_LEVEL=INFO
+ENV QHS_CONFIG_PATH=/app/config
+ENV QHS_DATA_PATH=/app/data
+ENV QHS_CACHE_PATH=/app/cache
+
+# Install runtime system dependencies
+RUN apt-get update && apt-get install -y \
+    libhdf5-103 \
+    libopenblas0 \
+    liblapack3 \
     libgomp1 \
     curl \
+    supervisor \
+    nginx \
     && rm -rf /var/lib/apt/lists/*
 
-# Create app user
-RUN groupadd -r appuser && useradd -r -g appuser appuser
+# Copy virtual environment from builder stage
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-# Development stage
-FROM base as development
+# Create application directories
+RUN mkdir -p /app/config /app/data /app/cache /app/logs /var/log/qhs
 
-# Install development dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    vim \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# Create non-root user for security
+RUN groupadd -r qhs && useradd -r -g qhs -d /app -s /bin/bash qhs
 
-# Set work directory
-WORKDIR /app
+# Copy application code
+COPY --chown=qhs:qhs quantum_hyper_search/ /app/quantum_hyper_search/
+COPY --chown=qhs:qhs examples/ /app/examples/
 
-# Copy requirements first for better caching
-COPY pyproject.toml setup.cfg setup.py ./
-COPY quantum_hyper_search/__init__.py quantum_hyper_search/
-
-# Install Python dependencies
-RUN pip install -e ".[dev,simulators,monitoring]"
-
-# Copy source code
-COPY . .
-
-# Change ownership
-RUN chown -R appuser:appuser /app
-
-USER appuser
-
-# Expose port for Jupyter
-EXPOSE 8888
-
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-
-# Production stage
-FROM base as production
-
-# Set working directory
-WORKDIR /app
-
-# Copy installed packages from builder
-COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
-COPY --from=builder /usr/local/bin/ /usr/local/bin/
-COPY --from=builder /app/ /app/
-
-# Copy source code
-COPY quantum_hyper_search quantum_hyper_search/
-COPY examples examples/
-
-# Create cache and logs directories
-RUN mkdir -p /app/cache /app/logs && \
-    chown -R appuser:appuser /app
-
-USER appuser
+# Set proper permissions
+RUN chown -R qhs:qhs /app /var/log/qhs \
+    && chmod 755 /app/config /app/data /app/cache
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD python -m quantum_hyper_search.monitoring.health_check --quiet || exit 1
+    CMD python -c "from quantum_hyper_search.monitoring.health_check import check_health; exit(0 if check_health() else 1)"
+
+# Expose ports
+EXPOSE 8000 8080 9090
+
+# Volume mounts for persistence
+VOLUME ["/app/data", "/app/cache", "/app/logs"]
+
+# Switch to non-root user
+USER qhs
+
+# Set working directory
+WORKDIR /app
 
 # Default command
-CMD ["python", "-m", "quantum_hyper_search.examples.basic_usage"]
+CMD ["python", "-m", "quantum_hyper_search.examples.production_example"]
 
-# D-Wave enabled stage
-FROM production as dwave
-
-USER root
-
-# Install D-Wave dependencies
-RUN pip install -e ".[dwave]"
-
-USER appuser
-
-# API service stage  
-FROM production as api
-
-USER root
-
-# Install additional API dependencies
-RUN pip install fastapi uvicorn[standard]
-
-USER appuser
-
-# Expose API port
-EXPOSE 8000
-
-# Copy API code
-COPY api/ api/
-
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
-# Labels
-LABEL maintainer="Daniel Schmidt <daniel@terragonlabs.com>"
-LABEL version="0.1.0"
-LABEL description="Quantum-Annealed Hyperparameter Search"
-```
+# Labels for metadata
+LABEL maintainer="Terragon Labs <contact@terragonlabs.com>"
+LABEL version="1.0.0"
+LABEL description="Enterprise Quantum Hyperparameter Search System"
+LABEL org.opencontainers.image.source="https://github.com/terragon-labs/quantum-hyper-search"
+LABEL org.opencontainers.image.documentation="https://quantum-hyper-search.terragonlabs.com"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
