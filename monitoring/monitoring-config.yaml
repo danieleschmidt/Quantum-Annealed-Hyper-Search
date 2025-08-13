@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  alerts.yml: "groups:\n- name: quantum-optimizer\n  rules:\n  - alert: QuantumOptimizerDown\n\
+    \    annotations:\n      description: Quantum optimizer has been down for more\
+    \ than 1 minute\n      summary: Quantum optimizer is down\n    expr: up{job=\"\
+    quantum-optimizer\"} == 0\n    for: 1m\n    labels:\n      severity: critical\n\
+    \  - alert: HighErrorRate\n    annotations:\n      description: Error rate is\
+    \ above 10% for 2 minutes\n      summary: High error rate detected\n    expr:\
+    \ rate(quantum_errors_total[5m]) > 0.1\n    for: 2m\n    labels:\n      severity:\
+    \ warning\n"
+  prometheus.yml: "global:\n  evaluation_interval: 15s\n  scrape_interval: 15s\nscrape_configs:\n\
+    - job_name: quantum-optimizer\n  kubernetes_sd_configs:\n  - role: pod\n  relabel_configs:\n\
+    \  - action: keep\n    regex: 'true'\n    source_labels:\n    - __meta_kubernetes_pod_annotation_prometheus_io_scrape\n"
+kind: ConfigMap
+metadata:
+  name: quantum-hyper-search-monitoring
+  namespace: quantum-optimization

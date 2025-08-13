@@ -1,6 +1,9 @@
 """
 Robust QuantumHyperSearch implementation with comprehensive error handling, 
 monitoring, and reliability features.
+
+Generation 2: MAKE IT ROBUST - Enhanced with enterprise-grade error handling,
+monitoring, security, and reliability features for production environments.
 """
 
 import logging
@@ -18,6 +21,13 @@ from .utils.validation import (
 )
 from .utils.security import (
     sanitize_parameters, check_safety, generate_session_id, SecurityError
+)
+from .utils.robust_error_handling import (
+    RobustErrorHandler, ErrorContext, ErrorSeverity, handle_quantum_errors,
+    handle_optimization_errors, handle_validation_errors
+)
+from .utils.comprehensive_monitoring import (
+    ComprehensiveMonitor, monitor_performance, global_monitor
 )
 
 logger = logging.getLogger(__name__)
@@ -93,6 +103,7 @@ class QuantumHyperSearchRobust:
         encoding: str = "one_hot",
         penalty_strength: float = 2.0,
         enable_security: bool = True,
+        enable_monitoring: bool = True,
         max_retries: int = 3,
         timeout_per_iteration: float = 300.0,  # 5 minutes
         fallback_to_random: bool = True,
@@ -115,10 +126,23 @@ class QuantumHyperSearchRobust:
         self.encoding = encoding
         self.penalty_strength = penalty_strength
         self.enable_security = enable_security
+        self.enable_monitoring = enable_monitoring
         self.max_retries = max_retries
         self.timeout_per_iteration = timeout_per_iteration
         self.fallback_to_random = fallback_to_random
         self.session_id = generate_session_id()
+        
+        # Initialize error handling and monitoring
+        self.error_handler = RobustErrorHandler()
+        if enable_monitoring:
+            self.monitor = ComprehensiveMonitor()
+            self.monitor.start_monitoring()
+        else:
+            self.monitor = None
+        
+        # Setup circuit breakers for common failure scenarios
+        self.error_handler.create_circuit_breaker("QuantumBackendError", failure_threshold=3)
+        self.error_handler.create_circuit_breaker("TimeoutError", failure_threshold=5)
         
         # Initialize with retry logic
         self._initialize_components(**kwargs)
@@ -182,6 +206,8 @@ class QuantumHyperSearchRobust:
             
             raise RuntimeError(f"All backends failed. Last error: {e}")
     
+    @handle_optimization_errors
+    @monitor_performance("quantum_optimization", "seconds", {"component": "robust_main"})
     def optimize(
         self,
         model_class: type,
