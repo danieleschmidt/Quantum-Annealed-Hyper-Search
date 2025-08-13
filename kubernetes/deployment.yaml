@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: quantum-hyper-search
+    component: quantum-optimizer
+    version: 1.0.0
+  name: quantum-hyper-search
+  namespace: quantum-optimization
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantum-hyper-search
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '8000'
+        prometheus.io/scrape: 'true'
+      labels:
+        app: quantum-hyper-search
+        version: 1.0.0
+    spec:
+      containers:
+      - env:
+        - name: ENVIRONMENT
+          value: production
+        - name: QUANTUM_BACKEND
+          value: production
+        - name: MONITORING_ENABLED
+          value: 'true'
+        - name: SECURITY_ENABLED
+          value: 'true'
+        image: quantum-hyper-search:1.0.0
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: quantum-hyper-search
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - mountPath: /app/cache
+          name: cache-volume
+        - mountPath: /app/data
+          name: data-volume
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      serviceAccountName: quantum-hyper-search-service-account
+      volumes:
+      - emptyDir:
+          sizeLimit: 1Gi
+        name: cache-volume
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: quantum-hyper-search-data-pvc
