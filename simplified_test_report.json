@@ -1,0 +1,104 @@
+{
+  "status": "failed",
+  "execution_time": 0.08355522155761719,
+  "test_summary": {
+    "total_tests": 11,
+    "passed_tests": 3,
+    "failed_tests": 8,
+    "success_rate": 27.27272727272727
+  },
+  "quality_gates": {
+    "total_gates": 3,
+    "passed_gates": 0,
+    "failed_gates": 3,
+    "gate_pass_rate": 0.0
+  },
+  "test_results": [
+    {
+      "test_name": "import_quantum_advantage_accelerator",
+      "passed": false,
+      "execution_time": 0.05791449546813965,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_quantum_coherence_optimizer",
+      "passed": false,
+      "execution_time": 0.0016169548034667969,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_quantum_machine_learning_bridge",
+      "passed": false,
+      "execution_time": 0.0014584064483642578,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_distributed_quantum_cluster",
+      "passed": false,
+      "execution_time": 0.0012791156768798828,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_performance_accelerator",
+      "passed": false,
+      "execution_time": 0.001237630844116211,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_enhanced_security",
+      "passed": false,
+      "execution_time": 0.001302957534790039,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_comprehensive_validation",
+      "passed": false,
+      "execution_time": 0.0012574195861816406,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "import_robust_monitoring",
+      "passed": false,
+      "execution_time": 0.0012679100036621094,
+      "error_message": "No module named 'numpy'"
+    },
+    {
+      "test_name": "data_structures",
+      "passed": true,
+      "execution_time": 1.430511474609375e-05,
+      "error_message": null
+    },
+    {
+      "test_name": "utility_functions",
+      "passed": true,
+      "execution_time": 0.013901710510253906,
+      "error_message": null
+    },
+    {
+      "test_name": "configuration",
+      "passed": true,
+      "execution_time": 5.1021575927734375e-05,
+      "error_message": null
+    }
+  ],
+  "quality_gate_results": [
+    {
+      "gate_name": "test_coverage",
+      "passed": false,
+      "score": 27.27272727272727,
+      "threshold": 80.0
+    },
+    {
+      "gate_name": "error_rate",
+      "passed": false,
+      "score": 72.72727272727273,
+      "threshold": 5.0
+    },
+    {
+      "gate_name": "import_success",
+      "passed": false,
+      "score": 0.0,
+      "threshold": 90.0
+    }
+  ]
+}

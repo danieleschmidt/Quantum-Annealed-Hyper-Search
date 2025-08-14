@@ -1,0 +1,126 @@
+# Ansible Playbook for Quantum Hyper Search Deployment
+---
+- name: Deploy Quantum Hyper Search to Production
+  hosts: production_servers
+  become: yes
+  vars:
+    app_name: quantum-hyper-search
+    app_version: production
+    deployment_user: quantum
+    app_port: 8000
+    
+  tasks:
+  - name: Update system packages
+    package:
+      name: "*"
+      state: latest
+    
+  - name: Install Docker
+    package:
+      name: docker
+      state: present
+    
+  - name: Start and enable Docker service
+    service:
+      name: docker
+      state: started
+      enabled: yes
+    
+  - name: Create deployment user
+    user:
+      name: "{{ deployment_user }}"
+      shell: /bin/bash
+      groups: docker
+      append: yes
+    
+  - name: Create application directory
+    file:
+      path: "/opt/{{ app_name }}"
+      state: directory
+      owner: "{{ deployment_user }}"
+      group: "{{ deployment_user }}"
+      mode: '0755'
+    
+  - name: Pull Docker image
+    docker_image:
+      name: "{{ app_name }}:{{ app_version }}"
+      source: pull
+      force_source: yes
+    
+  - name: Stop existing container
+    docker_container:
+      name: "{{ app_name }}"
+      state: stopped
+    ignore_errors: yes
+    
+  - name: Remove existing container
+    docker_container:
+      name: "{{ app_name }}"
+      state: absent
+    ignore_errors: yes
+    
+  - name: Start application container
+    docker_container:
+      name: "{{ app_name }}"
+      image: "{{ app_name }}:{{ app_version }}"
+      state: started
+      restart_policy: always
+      ports:
+        - "{{ app_port }}:8000"
+      env:
+        ENVIRONMENT: production
+        QUANTUM_BACKEND: dwave
+        MONITORING_ENABLED: "true"
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+        interval: 30s
+        timeout: 10s
+        retries: 3
+        start_period: 60s
+    
+  - name: Wait for application to be ready
+    uri:
+      url: "http://localhost:{{ app_port }}/health"
+      method: GET
+      status_code: 200
+    retries: 30
+    delay: 10
+    
+  - name: Configure log rotation
+    template:
+      src: logrotate.j2
+      dest: "/etc/logrotate.d/{{ app_name }}"
+      mode: '0644'
+    
+  - name: Setup monitoring
+    include_tasks: monitoring.yml
+    when: monitoring_enabled | default(true)
+
+- name: Configure Load Balancer
+  hosts: load_balancers
+  become: yes
+  tasks:
+  - name: Install nginx
+    package:
+      name: nginx
+      state: present
+    
+  - name: Configure nginx for quantum app
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/sites-available/quantum-hyper-search
+      backup: yes
+    notify: restart nginx
+    
+  - name: Enable quantum app site
+    file:
+      src: /etc/nginx/sites-available/quantum-hyper-search
+      dest: /etc/nginx/sites-enabled/quantum-hyper-search
+      state: link
+    notify: restart nginx
+    
+  handlers:
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
