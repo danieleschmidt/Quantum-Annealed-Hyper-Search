@@ -929,7 +929,9 @@ class QuantumAdvantageAccelerator:
     def optimize_with_quantum_advantage(self, objective_function: Callable,
                                       param_space: Dict[str, List[Any]],
                                       n_iterations: int = 50,
-                                      technique_weights: Optional[Dict[str, float]] = None) -> Tuple[Dict[str, Any], QuantumAdvantageMetrics]:
+                                      technique_weights: Optional[Dict[str, float]] = None,
+                                      enable_adaptive_weighting: bool = True,
+                                      convergence_threshold: float = 1e-6) -> Tuple[Dict[str, Any], QuantumAdvantageMetrics]:
         """Run optimization using multiple quantum advantage techniques."""
         
         technique_weights = technique_weights or {t: 1.0 for t in self.techniques}
@@ -937,6 +939,8 @@ class QuantumAdvantageAccelerator:
         
         all_results = []
         technique_metrics = {}
+        convergence_history = []
+        best_score_history = []
         
         # Run each enabled technique
         for technique in self.techniques:
@@ -964,11 +968,23 @@ class QuantumAdvantageAccelerator:
                 weighted_result = (result, weight, technique_time)
                 all_results.append(weighted_result)
                 
+                best_score = max(result[1]) if result[1] else 0
+                best_score_history.append(best_score)
+                
                 technique_metrics[technique] = {
                     'time': technique_time,
-                    'best_score': max(result[1]) if result[1] else 0,
-                    'weight': weight
+                    'best_score': best_score,
+                    'weight': weight,
+                    'convergence_rate': self._calculate_convergence_rate(result[1])
                 }
+                
+                # Adaptive weight adjustment based on performance
+                if enable_adaptive_weighting and len(best_score_history) > 1:
+                    improvement = best_score_history[-1] - best_score_history[-2]
+                    if improvement > convergence_threshold:
+                        technique_weights[technique] *= 1.1  # Boost successful techniques
+                    elif improvement < -convergence_threshold:
+                        technique_weights[technique] *= 0.9  # Reduce struggling techniques
                 
             except Exception as e:
                 logger.error(f"Technique {technique} failed: {e}")
@@ -983,10 +999,15 @@ class QuantumAdvantageAccelerator:
         
         total_time = time.time() - start_time
         
-        # Calculate quantum advantage metrics
+        # Calculate quantum advantage metrics with convergence data
         metrics = self._calculate_quantum_advantage_metrics(
-            technique_metrics, total_time, best_result
+            technique_metrics, total_time, best_result, convergence_history
         )
+        
+        # Log optimization summary
+        logger.info(f"Quantum optimization completed in {total_time:.2f}s")
+        logger.info(f"Best score achieved: {max(best_result[1]) if best_result[1] else 0:.4f}")
+        logger.info(f"Quantum advantage score: {metrics.quantum_advantage_score():.3f}")
         
         self.metrics_history.append(metrics)
         
@@ -1208,8 +1229,21 @@ class QuantumAdvantageAccelerator:
         
         return best_params or self._sample_random_params(param_space), scores
     
+    def _calculate_convergence_rate(self, scores: List[float]) -> float:
+        """Calculate convergence rate for a score sequence."""
+        if len(scores) < 2:
+            return 0.0
+        
+        # Calculate rate of improvement
+        improvements = [scores[i+1] - scores[i] for i in range(len(scores)-1)]
+        avg_improvement = np.mean(improvements)
+        
+        # Normalize by score magnitude
+        score_magnitude = max(abs(max(scores)), abs(min(scores)), 1.0)
+        return avg_improvement / score_magnitude
+    
     def _calculate_quantum_advantage_metrics(self, technique_metrics: Dict, total_time: float,
-                                           best_result: Tuple) -> QuantumAdvantageMetrics:
+                                           best_result: Tuple, convergence_history: List[float] = None) -> QuantumAdvantageMetrics:
         """Calculate quantum advantage metrics."""
         
         # Estimate classical baseline time (simplified)
@@ -1229,11 +1263,20 @@ class QuantumAdvantageAccelerator:
         # Exploration diversity (number of unique techniques used)
         diversity = len(technique_metrics) / max(len(self.techniques), 1)
         
-        # Quantum coherence utilization (simplified)
-        coherence_utilization = 0.7 if 'quantum_walk' in technique_metrics else 0.3
+        # Quantum coherence utilization based on technique performance
+        coherence_utilization = 0.0
+        if 'quantum_walk' in technique_metrics:
+            coherence_utilization += 0.4 * (technique_metrics['quantum_walk']['convergence_rate'] + 1)
+        if 'parallel_tempering' in technique_metrics:
+            coherence_utilization += 0.3 * (technique_metrics['parallel_tempering']['convergence_rate'] + 1)
+        coherence_utilization = min(1.0, coherence_utilization)
         
-        # Error correction overhead
-        error_overhead = 0.2 if 'error_correction' in technique_metrics else 0.0
+        # Error correction overhead with adaptive adjustment
+        error_overhead = 0.0
+        if 'error_correction' in technique_metrics:
+            base_overhead = 0.2
+            performance_factor = technique_metrics['error_correction']['convergence_rate']
+            error_overhead = base_overhead * max(0.1, 1.0 - performance_factor)
         
         return QuantumAdvantageMetrics(
             classical_time=classical_time,

@@ -1,0 +1,163 @@
+{
+  "status": "failed",
+  "execution_time": 0.024349689483642578,
+  "summary": {
+    "total_gates": 18,
+    "passed_gates": 17,
+    "failed_gates": 1,
+    "critical_failures": 1,
+    "pass_rate": 94.44444444444444
+  },
+  "gates": [
+    {
+      "name": "modular_design",
+      "description": "System should have proper modular design",
+      "threshold": 10.0,
+      "actual_value": 64.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "separation_of_concerns",
+      "description": "Components should be properly separated",
+      "threshold": 80.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "quantum_classical_integration",
+      "description": "Quantum and classical components should be well integrated",
+      "threshold": 85.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "file_structure",
+      "description": "Project should have proper file structure",
+      "threshold": 90.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "code_organization",
+      "description": "Code should be well organized",
+      "threshold": 85.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "documentation_coverage",
+      "description": "Code should have adequate documentation",
+      "threshold": 80.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "security_framework",
+      "description": "Security framework should be implemented",
+      "threshold": 95.0,
+      "actual_value": 50.0,
+      "passed": false,
+      "critical": true
+    },
+    {
+      "name": "encryption_implementation",
+      "description": "Encryption should be properly implemented",
+      "threshold": 90.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "audit_logging",
+      "description": "Comprehensive audit logging should be implemented",
+      "threshold": 85.0,
+      "actual_value": 85.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "caching_implementation",
+      "description": "Performance caching should be implemented",
+      "threshold": 85.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "scalability_design",
+      "description": "System should be designed for scalability",
+      "threshold": 80.0,
+      "actual_value": 80.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "monitoring_implementation",
+      "description": "Comprehensive monitoring should be implemented",
+      "threshold": 90.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "readme_quality",
+      "description": "README should be comprehensive and well-structured",
+      "threshold": 90.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "api_documentation",
+      "description": "API should be well documented",
+      "threshold": 80.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": false
+    },
+    {
+      "name": "deployment_documentation",
+      "description": "Deployment should be well documented",
+      "threshold": 85.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "containerization",
+      "description": "System should be properly containerized",
+      "threshold": 90.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "configuration_management",
+      "description": "Configuration should be properly managed",
+      "threshold": 85.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    },
+    {
+      "name": "production_dependencies",
+      "description": "Production dependencies should be properly defined",
+      "threshold": 95.0,
+      "actual_value": 100.0,
+      "passed": true,
+      "critical": true
+    }
+  ],
+  "critical_failures": [
+    "security_framework"
+  ],
+  "recommendations": [
+    "Implement comprehensive security framework with encryption and audit logging"
+  ]
+}
