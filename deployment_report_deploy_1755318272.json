@@ -1,0 +1,5 @@
+{
+  "status": "failed",
+  "error": "Critical deployment stage failed: build_artifacts",
+  "deployment_id": "deploy_1755318272"
+}

@@ -1,7 +1,7 @@
 {
-  "timestamp": 1755059544.2452068,
-  "execution_time": 33.33369970321655,
-  "all_passed": true,
+  "timestamp": 1755318215.1616766,
+  "execution_time": 31.74965786933899,
+  "all_passed": false,
   "results": {
     "Code Execution": {
       "passed": true,
@@ -28,7 +28,7 @@
       "coverage": 100.0
     },
     "Security Scan": {
-      "passed": true,
+      "passed": false,
       "details": [
         "\u2705 Security utilities available",
         "\u2705 Enterprise security available",
@@ -36,20 +36,21 @@
         "\u2705 Parameter sanitization works",
         "\u2705 Safety checks functional",
         "\u2705 Session ID generation works",
-        "\u2705 No hardcoded secrets",
         "\u2705 Input validation present",
         "\u2705 Error handling secure"
       ],
-      "errors": [],
-      "security_score": 1.0
+      "errors": [
+        "Security issue: No hardcoded secrets"
+      ],
+      "security_score": 0.8888888888888888
     },
     "Performance Benchmarks": {
       "passed": true,
       "details": [
-        "\u2705 Response time: 158.1ms (< 200ms)",
-        "\u2705 Throughput: 6.32 eval/s (> 1.0 eval/s)",
-        "\u2705 Accuracy: 0.950 (> 0.8)",
-        "\u2705 Memory usage: 16.8% (< 90%)"
+        "\u2705 Response time: 116.5ms (< 200ms)",
+        "\u2705 Throughput: 6.87 eval/s (> 1.0 eval/s)",
+        "\u2705 Accuracy: 0.960 (> 0.8)",
+        "\u2705 Memory usage: 17.4% (< 90%)"
       ],
       "errors": [],
       "performance_score": 1.0
@@ -72,7 +73,7 @@
   },
   "summary": {
     "total_gates": 5,
-    "passed_gates": 5,
-    "pass_rate": 1.0
+    "passed_gates": 4,
+    "pass_rate": 0.8
   }
 }
