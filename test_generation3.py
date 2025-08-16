@@ -1,4 +1,3 @@
-```python
 #!/usr/bin/env python3
 """
 Generation 3 scalability and performance test.
@@ -306,4 +305,3 @@ if success_count == total_tests:
     print('🏆 Quantum Hyperparameter Search - Production Ready!')
 else:
     print('\n⚠️  Some unit tests failed, but core functionality demonstrated')
-```

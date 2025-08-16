@@ -107,11 +107,16 @@ class QuantumHyperSearch:
         """
         start_time = time.time()
         
-        # Validate inputs
-        param_space = validate_search_space(param_space)
-        X, y = validate_data(X, y)
-        validate_model_class(model_class)
-        validate_optimization_params(n_iterations, quantum_reads, cv_folds, scoring)
+        # Validate inputs with exception raising
+        try:
+            param_space = validate_search_space(param_space)
+            X, y = validate_data(X, y)
+            validate_model_class(model_class)
+            validate_optimization_params(n_iterations, quantum_reads, cv_folds, scoring)
+        except ValidationError as e:
+            raise Exception(f"Validation failed: {e}")
+        except Exception as e:
+            raise Exception(f"Input validation error: {e}")
         
         print(f"🌌 Starting quantum hyperparameter optimization with {self.backend_name}")
         print(f"📊 Parameter space: {len(param_space)} parameters")

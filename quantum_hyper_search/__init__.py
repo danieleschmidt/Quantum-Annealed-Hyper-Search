@@ -5,14 +5,9 @@ A hybrid quantum-classical library for hyperparameter optimization using
 D-Wave quantum annealers with seamless integration for Optuna and Ray Tune.
 """
 
-# Use optimized version with fallback to robust, then simple
-try:
-    from .optimized_main import QuantumHyperSearchOptimized as QuantumHyperSearch
-except ImportError:
-    try:
-        from .robust_main import QuantumHyperSearchRobust as QuantumHyperSearch
-    except ImportError:
-        from .simple_main import QuantumHyperSearch
+# Generation 3: Use optimized version for production-ready scaling
+from .optimized_main import QuantumHyperSearchOptimized as QuantumHyperSearch
+from .core.optimization_history import OptimizationHistory
 from .core.base import QuantumBackend
 from .core.qubo_encoder import QUBOEncoder
 from .backends.backend_factory import get_backend

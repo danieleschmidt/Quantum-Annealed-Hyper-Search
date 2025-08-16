@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-hyper-search
+  labels:
+    app: quantum-optimizer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantum-optimizer
+  template:
+    metadata:
+      labels:
+        app: quantum-optimizer
+    spec:
+      containers:
+      - name: quantum-optimizer
+        image: quantum-hyper-search:production
+        ports:
+        - containerPort: 8000
+        env:
+        - name: ENVIRONMENT
+          value: "production"
+        - name: QUANTUM_BACKEND
+          value: "simulated"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantum-service
+spec:
+  selector:
+    app: quantum-optimizer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
