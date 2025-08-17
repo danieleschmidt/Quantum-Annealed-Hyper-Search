@@ -26,7 +26,7 @@ import logging
 import hashlib
 import threading
 from concurrent.futures import ThreadPoolExecutor
-import yaml
+# import yaml  # Not needed for this deployment
 
 # Set up logging
 logging.basicConfig(
