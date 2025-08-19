@@ -1,49 +1,222 @@
 {
   "scan_metadata": {
-    "timestamp": "2025-08-05T01:50:43.465056",
-    "duration_seconds": 0.4333789348602295,
-    "files_scanned": 45,
+    "timestamp": "2025-08-19T23:04:28.367792",
+    "duration_seconds": 2.3086535930633545,
+    "files_scanned": 147,
     "scanner_version": "1.0.0"
   },
   "summary": {
-    "total_issues": 131,
-    "critical_issues": 7,
-    "high_issues": 9,
-    "medium_issues": 1,
-    "low_issues": 114,
+    "total_issues": 182,
+    "critical_issues": 10,
+    "high_issues": 46,
+    "medium_issues": 9,
+    "low_issues": 117,
     "info_issues": 0,
     "categories": {
-      "code_injection": 6,
-      "dangerous_function": 2,
-      "command_injection": 1,
-      "deserialization": 1,
-      "dangerous_import": 1,
-      "config_secret": 6,
-      "dependency_management": 114
+      "code_injection": 24,
+      "hardcoded_secret": 6,
+      "dangerous_function": 3,
+      "command_injection": 5,
+      "syntax_error": 2,
+      "deserialization": 3,
+      "weak_crypto": 5,
+      "dangerous_import": 4,
+      "config_secret": 15,
+      "dependency_management": 115
     },
-    "files_scanned": 45,
-    "scan_duration": 0.4333789348602295
+    "files_scanned": 147,
+    "scan_duration": 2.3086535930633545
   },
   "issues": [
     {
-      "severity": "critical",
+      "severity": "high",
       "category": "code_injection",
-      "description": "Use of exec() function - code injection risk",
-      "file_path": "setup.py",
-      "line_number": 17,
-      "code_snippet": "exec(f.read(), version)",
+      "description": "Dynamic import usage - potential code injection",
+      "file_path": "run_comprehensive_quality_gates.py",
+      "line_number": 211,
+      "code_snippet": "__import__(module_name)",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded password",
+      "file_path": "run_comprehensive_quality_gates.py",
+      "line_number": 392,
+      "code_snippet": "secret_patterns = ['password = ', 'api_key = ', 'secret_key = ']",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded API key",
+      "file_path": "run_comprehensive_quality_gates.py",
+      "line_number": 392,
+      "code_snippet": "secret_patterns = ['password = ', 'api_key = ', 'secret_key = ']",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Dynamic import usage - potential code injection",
+      "file_path": "run_quality_gates.py",
+      "line_number": 281,
+      "code_snippet": "'eval_code': '__import__(\"os\").system(\"ls\")',",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "run_quality_gates.py",
+      "line_number": 381,
+      "code_snippet": "compile(content, py_file, 'exec')",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Dynamic import usage - potential code injection",
+      "file_path": "run_quality_gates.py",
+      "line_number": 404,
+      "code_snippet": "__import__(module_name)",
       "recommendation": "",
       "cwe_id": "CWE-95"
     },
     {
       "severity": "critical",
       "category": "dangerous_function",
-      "description": "Use of dangerous function: exec",
-      "file_path": "setup.py",
-      "line_number": 17,
+      "description": "Use of dangerous function: compile",
+      "file_path": "run_quality_gates.py",
+      "line_number": 381,
       "code_snippet": "",
       "recommendation": "",
       "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Dynamic import usage - potential code injection",
+      "file_path": "test_autonomous_sdlc_simplified.py",
+      "line_number": 116,
+      "code_snippet": "__import__(module_name)",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of exec() function - code injection risk",
+      "file_path": "test_comprehensive_quality_gates_advanced.py",
+      "line_number": 435,
+      "code_snippet": "'eval_code': 'exec(\"import os; os.system(\\'ls\\')\")'",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "command_injection",
+      "description": "Use of os.system() - command injection risk",
+      "file_path": "test_comprehensive_quality_gates_advanced.py",
+      "line_number": 435,
+      "code_snippet": "'eval_code': 'exec(\"import os; os.system(\\'ls\\')\")'",
+      "recommendation": "",
+      "cwe_id": "CWE-78"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "test_comprehensive_quality_gates_advanced.py",
+      "line_number": 910,
+      "code_snippet": "compile(content, py_file, 'exec')",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "dangerous_function",
+      "description": "Use of dangerous function: compile",
+      "file_path": "test_comprehensive_quality_gates_advanced.py",
+      "line_number": 910,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of eval() function - code injection risk",
+      "file_path": "test_generation3.py",
+      "line_number": 253,
+      "code_snippet": "def test_eval(params):",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "command_injection",
+      "description": "Subprocess with shell=True - command injection risk",
+      "file_path": "deployment/autonomous_production_orchestrator.py",
+      "line_number": 485,
+      "code_snippet": "subprocess.run(command, shell=True, timeout=60)",
+      "recommendation": "",
+      "cwe_id": "CWE-78"
+    },
+    {
+      "severity": "high",
+      "category": "command_injection",
+      "description": "subprocess call with shell=True",
+      "file_path": "deployment/autonomous_production_orchestrator.py",
+      "line_number": 407,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-78"
+    },
+    {
+      "severity": "high",
+      "category": "command_injection",
+      "description": "subprocess call with shell=True",
+      "file_path": "deployment/autonomous_production_orchestrator.py",
+      "line_number": 485,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-78"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded secret in variable: api_docs",
+      "file_path": "deployment/simplified_production_deployment.py",
+      "line_number": 679,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "low",
+      "category": "syntax_error",
+      "description": "Syntax error in file: invalid syntax (<unknown>, line 1)",
+      "file_path": "examples/advanced_optimization.py",
+      "line_number": 1,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": null
+    },
+    {
+      "severity": "low",
+      "category": "syntax_error",
+      "description": "Syntax error in file: invalid syntax (<unknown>, line 1)",
+      "file_path": "examples/basic_usage.py",
+      "line_number": 1,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": null
     },
     {
       "severity": "critical",
@@ -86,6 +259,16 @@
       "cwe_id": "CWE-78"
     },
     {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Dynamic import usage - potential code injection",
+      "file_path": "tests/test_advanced_research_capabilities.py",
+      "line_number": 401,
+      "code_snippet": "asyncio_run = __import__('asyncio').run",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
       "severity": "critical",
       "category": "code_injection",
       "description": "Use of exec() function - code injection risk",
@@ -120,8 +303,38 @@
       "category": "deserialization",
       "description": "Use of pickle - deserialization vulnerability",
       "file_path": "quantum_hyper_search/optimization/caching.py",
-      "line_number": 186,
+      "line_number": 192,
       "code_snippet": "entry = pickle.load(f)",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "medium",
+      "category": "weak_crypto",
+      "description": "Use of MD5 - cryptographically weak",
+      "file_path": "quantum_hyper_search/optimization/caching.py",
+      "line_number": 317,
+      "code_snippet": "return hashlib.md5(param_str.encode()).hexdigest()",
+      "recommendation": "",
+      "cwe_id": "CWE-327"
+    },
+    {
+      "severity": "medium",
+      "category": "weak_crypto",
+      "description": "Use of MD5 - cryptographically weak",
+      "file_path": "quantum_hyper_search/optimization/caching.py",
+      "line_number": 323,
+      "code_snippet": "return hashlib.md5(data_signature.encode()).hexdigest()",
+      "recommendation": "",
+      "cwe_id": "CWE-327"
+    },
+    {
+      "severity": "high",
+      "category": "deserialization",
+      "description": "Use of pickle - deserialization vulnerability",
+      "file_path": "quantum_hyper_search/optimization/caching.py",
+      "line_number": 551,
+      "code_snippet": "data = pickle.load(f)",
       "recommendation": "",
       "cwe_id": "CWE-502"
     },
@@ -130,10 +343,210 @@
       "category": "dangerous_import",
       "description": "Import of potentially dangerous module: pickle",
       "file_path": "quantum_hyper_search/optimization/caching.py",
-      "line_number": 6,
+      "line_number": 9,
       "code_snippet": "",
       "recommendation": "",
       "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "medium",
+      "category": "weak_crypto",
+      "description": "Use of MD5 - cryptographically weak",
+      "file_path": "quantum_hyper_search/optimization/distributed_quantum_optimization.py",
+      "line_number": 282,
+      "code_snippet": "task_hash = hashlib.md5(task_data.encode()).hexdigest()[:12]",
+      "recommendation": "",
+      "cwe_id": "CWE-327"
+    },
+    {
+      "severity": "medium",
+      "category": "dangerous_import",
+      "description": "Import of potentially dangerous module: pickle",
+      "file_path": "quantum_hyper_search/optimization/distributed_quantum_optimization.py",
+      "line_number": 18,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "high",
+      "category": "deserialization",
+      "description": "Use of pickle - deserialization vulnerability",
+      "file_path": "quantum_hyper_search/optimization/performance_accelerator.py",
+      "line_number": 331,
+      "code_snippet": "return pickle.loads(value)",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "medium",
+      "category": "weak_crypto",
+      "description": "Use of MD5 - cryptographically weak",
+      "file_path": "quantum_hyper_search/optimization/performance_accelerator.py",
+      "line_number": 518,
+      "code_snippet": "param_hash = hashlib.md5(str(args + tuple(kwargs.items())).encode()).hexdigest()",
+      "recommendation": "",
+      "cwe_id": "CWE-327"
+    },
+    {
+      "severity": "medium",
+      "category": "dangerous_import",
+      "description": "Import of potentially dangerous module: pickle",
+      "file_path": "quantum_hyper_search/optimization/performance_accelerator.py",
+      "line_number": 10,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "medium",
+      "category": "weak_crypto",
+      "description": "Use of MD5 - cryptographically weak",
+      "file_path": "quantum_hyper_search/research/experimental_framework.py",
+      "line_number": 60,
+      "code_snippet": "self.condition_id = hashlib.md5(condition_str.encode()).hexdigest()[:12]",
+      "recommendation": "",
+      "cwe_id": "CWE-327"
+    },
+    {
+      "severity": "medium",
+      "category": "dangerous_import",
+      "description": "Import of potentially dangerous module: pickle",
+      "file_path": "quantum_hyper_search/research/experimental_framework.py",
+      "line_number": 16,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-502"
+    },
+    {
+      "severity": "critical",
+      "category": "code_injection",
+      "description": "Use of eval() function - code injection risk",
+      "file_path": "quantum_hyper_search/research/quantum_ml_integration.py",
+      "line_number": 307,
+      "code_snippet": "model.eval()",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 87,
+      "code_snippet": "'email': re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 88,
+      "code_snippet": "'alphanumeric': re.compile(r'^[a-zA-Z0-9]+$'),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 89,
+      "code_snippet": "'filename': re.compile(r'^[a-zA-Z0-9._-]+$'),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 90,
+      "code_snippet": "'quantum_backend': re.compile(r'^(dwave|qiskit|cirq|simulated|neal)$'),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 91,
+      "code_snippet": "'uuid': re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', re.IGNORECASE)",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 96,
+      "code_snippet": "'sql_injection': re.compile(r'(\\bSELECT\\b|\\bINSERT\\b|\\bDELETE\\b|\\bDROP\\b|\\bUNION\\b|\\bEXEC\\b)', re.IGNORECASE),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 97,
+      "code_snippet": "'xss_script': re.compile(r'<script.*?>.*?</script>', re.IGNORECASE | re.DOTALL),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 98,
+      "code_snippet": "'path_traversal': re.compile(r'\\.\\.\\/|\\.\\.\\\\'),",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "code_injection",
+      "description": "Use of compile() function - potential code injection",
+      "file_path": "quantum_hyper_search/utils/comprehensive_validation.py",
+      "line_number": 99,
+      "code_snippet": "'command_injection': re.compile(r'[;&|`]')",
+      "recommendation": "",
+      "cwe_id": "CWE-95"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded secret",
+      "file_path": "quantum_hyper_search/utils/enhanced_security.py",
+      "line_number": 44,
+      "code_snippet": "SECRET = \"secret\"",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded secret",
+      "file_path": "quantum_hyper_search/utils/enhanced_security.py",
+      "line_number": 45,
+      "code_snippet": "TOP_SECRET = \"top_secret\"",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "hardcoded_secret",
+      "description": "Potential hardcoded secret in variable: TOP_SECRET",
+      "file_path": "quantum_hyper_search/utils/enhanced_security.py",
+      "line_number": 45,
+      "code_snippet": "",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
     },
     {
       "severity": "high",
@@ -141,7 +554,7 @@
       "description": "Potential secret in configuration file",
       "file_path": "security_report.json",
       "line_number": 144,
-      "code_snippet": "\"code_snippet\": \"- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}\",",
+      "code_snippet": "\"code_snippet\": \"\\\"code_snippet\\\": \\\"- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}\\\",\",",
       "recommendation": "",
       "cwe_id": "CWE-798"
     },
@@ -151,7 +564,7 @@
       "description": "Potential secret in configuration file",
       "file_path": "security_report.json",
       "line_number": 154,
-      "code_snippet": "\"code_snippet\": \"- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}\",",
+      "code_snippet": "\"code_snippet\": \"\\\"code_snippet\\\": \\\"- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}\\\",\",",
       "recommendation": "",
       "cwe_id": "CWE-798"
     },
@@ -161,6 +574,36 @@
       "description": "Potential secret in configuration file",
       "file_path": "security_report.json",
       "line_number": 164,
+      "code_snippet": "\"code_snippet\": \"\\\"code_snippet\\\": \\\"- JUPYTER_TOKEN=${JUPYTER_TOKEN:-quantum123}\\\",\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 174,
+      "code_snippet": "\"code_snippet\": \"- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 184,
+      "code_snippet": "\"code_snippet\": \"- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}\",",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "security_report.json",
+      "line_number": 194,
       "code_snippet": "\"code_snippet\": \"- JUPYTER_TOKEN=${JUPYTER_TOKEN:-quantum123}\",",
       "recommendation": "",
       "cwe_id": "CWE-798"
@@ -169,9 +612,9 @@
       "severity": "high",
       "category": "config_secret",
       "description": "Potential secret in configuration file",
-      "file_path": "docker-compose.yml",
-      "line_number": 40,
-      "code_snippet": "- DWAVE_API_TOKEN=${DWAVE_API_TOKEN}",
+      "file_path": "deployment/kubernetes/production.yaml",
+      "line_number": 236,
+      "code_snippet": "dwave-token: \"your-dwave-token-here\"",
       "recommendation": "",
       "cwe_id": "CWE-798"
     },
@@ -179,9 +622,9 @@
       "severity": "high",
       "category": "config_secret",
       "description": "Potential secret in configuration file",
-      "file_path": "docker-compose.yml",
-      "line_number": 116,
-      "code_snippet": "- GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}",
+      "file_path": "deployment/kubernetes/production.yaml",
+      "line_number": 238,
+      "code_snippet": "jwt-secret: \"your-jwt-secret-here\"",
       "recommendation": "",
       "cwe_id": "CWE-798"
     },
@@ -189,9 +632,69 @@
       "severity": "high",
       "category": "config_secret",
       "description": "Potential secret in configuration file",
-      "file_path": "docker-compose.yml",
-      "line_number": 135,
-      "code_snippet": "- JUPYTER_TOKEN=${JUPYTER_TOKEN:-quantum123}",
+      "file_path": "deployment/kubernetes/production.yaml",
+      "line_number": 355,
+      "code_snippet": "redis-password: \"quantum-redis-secure-password\"",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "deployment/kubernetes/production.yaml",
+      "line_number": 452,
+      "code_snippet": "postgres-password: \"quantum-postgres-secure-password\"",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "docker-compose.production.yml",
+      "line_number": 8,
+      "code_snippet": "GF_SECURITY_ADMIN_PASSWORD: quantum123",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "deployment/docker-compose.production.yml",
+      "line_number": 59,
+      "code_snippet": "- REDIS_PASSWORD=quantum_secure_password",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "deployment/docker-compose.production.yml",
+      "line_number": 88,
+      "code_snippet": "- POSTGRES_PASSWORD=quantum_secure_db_password",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "deployment/docker-compose.production.yml",
+      "line_number": 151,
+      "code_snippet": "- GF_SECURITY_ADMIN_PASSWORD=quantum_grafana_password",
+      "recommendation": "",
+      "cwe_id": "CWE-798"
+    },
+    {
+      "severity": "high",
+      "category": "config_secret",
+      "description": "Potential secret in configuration file",
+      "file_path": "deployment/production/docker-compose.production.yml",
+      "line_number": 50,
+      "code_snippet": "- GF_SECURITY_ADMIN_PASSWORD=admin123",
       "recommendation": "",
       "cwe_id": "CWE-798"
     },
@@ -210,18 +713,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 2,
-      "code_snippet": "requires = [\"hatchling\"]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
       "line_number": 3,
-      "code_snippet": "build-backend = \"hatchling.build\"",
+      "code_snippet": "build-backend = \"setuptools.build_meta\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -281,7 +774,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 10,
-      "code_snippet": "{name = \"Daniel Schmidt\", email = \"daniel@example.com\"},",
+      "code_snippet": "{name = \"Daniel Schmidt\", email = \"daniel@terragonlabs.com\"}",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -311,7 +804,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 13,
-      "code_snippet": "license = {file = \"LICENSE\"}",
+      "code_snippet": "license = {text = \"Apache-2.0\"}",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -321,7 +814,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 15,
-      "code_snippet": "dependencies = [",
+      "code_snippet": "keywords = [\"quantum\", \"machine-learning\", \"hyperparameter-optimization\", \"d-wave\", \"annealing\", \"optimization\", \"hyperparameter\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -330,27 +823,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 25,
-      "code_snippet": "]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 26,
-      "code_snippet": "keywords = [\"quantum\", \"machine-learning\", \"hyperparameter-optimization\", \"d-wave\", \"annealing\"]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 27,
+      "line_number": 16,
       "code_snippet": "classifiers = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -360,7 +833,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 28,
+      "line_number": 17,
       "code_snippet": "\"Development Status :: 3 - Alpha\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -370,7 +843,17 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 29,
+      "line_number": 18,
+      "code_snippet": "\"Intended Audience :: Developers\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 19,
       "code_snippet": "\"Intended Audience :: Science/Research\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -380,8 +863,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 30,
-      "code_snippet": "\"License :: OSI Approved :: MIT License\",",
+      "line_number": 20,
+      "code_snippet": "\"License :: OSI Approved :: Apache Software License\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -390,7 +873,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 31,
+      "line_number": 21,
       "code_snippet": "\"Programming Language :: Python :: 3\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -400,7 +883,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 32,
+      "line_number": 22,
       "code_snippet": "\"Programming Language :: Python :: 3.8\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -410,7 +893,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 33,
+      "line_number": 23,
       "code_snippet": "\"Programming Language :: Python :: 3.9\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -420,7 +903,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 34,
+      "line_number": 24,
       "code_snippet": "\"Programming Language :: Python :: 3.10\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -430,7 +913,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 35,
+      "line_number": 25,
       "code_snippet": "\"Programming Language :: Python :: 3.11\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -440,7 +923,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 36,
+      "line_number": 26,
       "code_snippet": "\"Topic :: Scientific/Engineering :: Artificial Intelligence\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -450,7 +933,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 37,
+      "line_number": 27,
       "code_snippet": "\"Topic :: Scientific/Engineering :: Physics\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -460,7 +943,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 38,
+      "line_number": 28,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -470,7 +953,27 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 40,
+      "line_number": 30,
+      "code_snippet": "dependencies = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 44,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 46,
       "code_snippet": "[project.optional-dependencies]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -480,7 +983,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 41,
+      "line_number": 47,
       "code_snippet": "dwave = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -490,7 +993,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 47,
+      "line_number": 52,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -500,7 +1003,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 48,
+      "line_number": 53,
       "code_snippet": "simulators = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -510,7 +1013,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 51,
+      "line_number": 58,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -520,7 +1023,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 52,
+      "line_number": 59,
       "code_snippet": "optimizers = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -530,7 +1033,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 57,
+      "line_number": 64,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -540,7 +1043,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 58,
+      "line_number": 65,
       "code_snippet": "ml = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -550,7 +1053,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 63,
+      "line_number": 70,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -560,7 +1063,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 64,
+      "line_number": 71,
       "code_snippet": "dev = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -570,68 +1073,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 75,
-      "code_snippet": "]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 76,
-      "code_snippet": "all = [",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 77,
-      "code_snippet": "\"quantum-annealed-hyper-search[dwave,simulators,optimizers,ml]\",",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 78,
-      "code_snippet": "]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 80,
-      "code_snippet": "[project.urls]",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 81,
-      "code_snippet": "Homepage = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search\"",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
       "line_number": 82,
-      "code_snippet": "Documentation = \"https://quantum-hyper-search.readthedocs.io\"",
+      "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -641,7 +1084,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 83,
-      "code_snippet": "Repository = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search.git\"",
+      "code_snippet": "all = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -651,7 +1094,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 84,
-      "code_snippet": "Issues = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search/issues\"",
+      "code_snippet": "\"quantum-annealed-hyper-search[dwave,simulators,optimizers,ml,dev]\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -660,8 +1103,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 86,
-      "code_snippet": "[tool.hatch.build.targets.wheel]",
+      "line_number": 85,
+      "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -671,7 +1114,17 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 87,
-      "code_snippet": "packages = [\"quantum_hyper_search\"]",
+      "code_snippet": "[project.urls]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 88,
+      "code_snippet": "Homepage = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -681,7 +1134,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 89,
-      "code_snippet": "[tool.black]",
+      "code_snippet": "Documentation = \"https://quantum-hyper-search.readthedocs.io\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -691,7 +1144,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 90,
-      "code_snippet": "line-length = 88",
+      "code_snippet": "Repository = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -701,17 +1154,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 91,
-      "code_snippet": "target-version = ['py38']",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 92,
-      "code_snippet": "include = '\\.pyi?$'",
+      "code_snippet": "Issues = \"https://github.com/danieleschmidt/quantum-annealed-hyper-search/issues\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -721,7 +1164,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 93,
-      "code_snippet": "extend-exclude = '''",
+      "code_snippet": "[tool.setuptools.packages.find]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -731,7 +1174,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 94,
-      "code_snippet": "/(",
+      "code_snippet": "where = [\".\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -740,8 +1183,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 96,
-      "code_snippet": "build/",
+      "line_number": 95,
+      "code_snippet": "include = [\"quantum_hyper_search*\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -751,7 +1194,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 97,
-      "code_snippet": "| dist/",
+      "code_snippet": "[tool.black]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -761,7 +1204,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 98,
-      "code_snippet": "| \\.git/",
+      "code_snippet": "line-length = 88",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -771,7 +1214,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 99,
-      "code_snippet": "| \\.venv/",
+      "code_snippet": "target-version = ['py38']",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -781,7 +1224,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 100,
-      "code_snippet": ")/",
+      "code_snippet": "include = '\\.pyi?$'",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -791,7 +1234,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 101,
-      "code_snippet": "'''",
+      "code_snippet": "extend-exclude = '''",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -800,8 +1243,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 103,
-      "code_snippet": "[tool.isort]",
+      "line_number": 102,
+      "code_snippet": "/(",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -811,7 +1254,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 104,
-      "code_snippet": "profile = \"black\"",
+      "code_snippet": "build/",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -821,7 +1264,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 105,
-      "code_snippet": "line_length = 88",
+      "code_snippet": "| dist/",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -831,7 +1274,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 106,
-      "code_snippet": "multi_line_output = 3",
+      "code_snippet": "| \\.git/",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -841,7 +1284,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 107,
-      "code_snippet": "include_trailing_comma = true",
+      "code_snippet": "| \\.venv/",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -851,7 +1294,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 108,
-      "code_snippet": "force_grid_wrap = 0",
+      "code_snippet": ")/",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -861,7 +1304,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 109,
-      "code_snippet": "use_parentheses = true",
+      "code_snippet": "'''",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -870,8 +1313,8 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 110,
-      "code_snippet": "ensure_newline_before_comments = true",
+      "line_number": 111,
+      "code_snippet": "[tool.isort]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -881,7 +1324,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 112,
-      "code_snippet": "[tool.mypy]",
+      "code_snippet": "profile = \"black\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -891,7 +1334,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 113,
-      "code_snippet": "python_version = \"3.8\"",
+      "code_snippet": "line_length = 88",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -901,7 +1344,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 114,
-      "code_snippet": "warn_return_any = true",
+      "code_snippet": "multi_line_output = 3",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -911,7 +1354,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 115,
-      "code_snippet": "warn_unused_configs = true",
+      "code_snippet": "include_trailing_comma = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -921,7 +1364,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 116,
-      "code_snippet": "disallow_untyped_defs = true",
+      "code_snippet": "force_grid_wrap = 0",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -931,7 +1374,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 117,
-      "code_snippet": "disallow_incomplete_defs = true",
+      "code_snippet": "use_parentheses = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -941,17 +1384,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 118,
-      "code_snippet": "check_untyped_defs = true",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 119,
-      "code_snippet": "disallow_untyped_decorators = true",
+      "code_snippet": "ensure_newline_before_comments = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -961,7 +1394,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 120,
-      "code_snippet": "no_implicit_optional = true",
+      "code_snippet": "[tool.mypy]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -971,7 +1404,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 121,
-      "code_snippet": "warn_redundant_casts = true",
+      "code_snippet": "python_version = \"3.8\"",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -981,7 +1414,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 122,
-      "code_snippet": "warn_unused_ignores = true",
+      "code_snippet": "warn_return_any = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -991,7 +1424,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 123,
-      "code_snippet": "warn_no_return = true",
+      "code_snippet": "warn_unused_configs = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1001,7 +1434,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 124,
-      "code_snippet": "warn_unreachable = true",
+      "code_snippet": "disallow_untyped_defs = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1011,7 +1444,17 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 125,
-      "code_snippet": "strict_equality = true",
+      "code_snippet": "disallow_incomplete_defs = true",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 126,
+      "code_snippet": "check_untyped_defs = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1021,7 +1464,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 127,
-      "code_snippet": "[tool.pytest.ini_options]",
+      "code_snippet": "disallow_untyped_decorators = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1031,7 +1474,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 128,
-      "code_snippet": "testpaths = [\"tests\"]",
+      "code_snippet": "no_implicit_optional = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1041,7 +1484,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 129,
-      "code_snippet": "python_files = [\"test_*.py\", \"*_test.py\"]",
+      "code_snippet": "warn_redundant_casts = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1051,7 +1494,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 130,
-      "code_snippet": "python_classes = [\"Test*\"]",
+      "code_snippet": "warn_unused_ignores = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1061,7 +1504,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 131,
-      "code_snippet": "python_functions = [\"test_*\"]",
+      "code_snippet": "warn_no_return = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1071,7 +1514,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 132,
-      "code_snippet": "addopts = [",
+      "code_snippet": "warn_unreachable = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1081,17 +1524,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 133,
-      "code_snippet": "\"--cov=quantum_hyper_search\",",
-      "recommendation": "",
-      "cwe_id": "CWE-1104"
-    },
-    {
-      "severity": "low",
-      "category": "dependency_management",
-      "description": "Unpinned dependency version",
-      "file_path": "pyproject.toml",
-      "line_number": 134,
-      "code_snippet": "\"--cov-report=term-missing\",",
+      "code_snippet": "strict_equality = true",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1101,7 +1534,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 135,
-      "code_snippet": "\"--cov-report=html\",",
+      "code_snippet": "[tool.pytest.ini_options]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1111,7 +1544,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 136,
-      "code_snippet": "\"--cov-report=xml\",",
+      "code_snippet": "testpaths = [\"tests\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1121,7 +1554,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 137,
-      "code_snippet": "\"--strict-markers\",",
+      "code_snippet": "python_files = [\"test_*.py\", \"*_test.py\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1131,7 +1564,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 138,
-      "code_snippet": "\"--disable-warnings\",",
+      "code_snippet": "python_classes = [\"Test*\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1141,7 +1574,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 139,
-      "code_snippet": "]",
+      "code_snippet": "python_functions = [\"test_*\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1151,7 +1584,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 140,
-      "code_snippet": "markers = [",
+      "code_snippet": "addopts = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1161,7 +1594,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 141,
-      "code_snippet": "\"slow: marks tests as slow\",",
+      "code_snippet": "\"--cov=quantum_hyper_search\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1171,7 +1604,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 142,
-      "code_snippet": "\"integration: marks tests as integration tests\",",
+      "code_snippet": "\"--cov-report=term-missing\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1181,7 +1614,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 143,
-      "code_snippet": "\"quantum: marks tests that require quantum hardware\",",
+      "code_snippet": "\"--cov-report=html\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1191,7 +1624,17 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 144,
-      "code_snippet": "]",
+      "code_snippet": "\"--cov-report=xml\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 145,
+      "code_snippet": "\"--strict-markers\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1201,7 +1644,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 146,
-      "code_snippet": "[tool.coverage.run]",
+      "code_snippet": "\"--disable-warnings\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1211,7 +1654,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 147,
-      "code_snippet": "source = [\"quantum_hyper_search\"]",
+      "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1221,7 +1664,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 148,
-      "code_snippet": "omit = [",
+      "code_snippet": "markers = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1231,7 +1674,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 149,
-      "code_snippet": "\"*/tests/*\",",
+      "code_snippet": "\"slow: marks tests as slow\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1241,7 +1684,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 150,
-      "code_snippet": "\"*/test_*\",",
+      "code_snippet": "\"integration: marks tests as integration tests\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1251,7 +1694,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 151,
-      "code_snippet": "\"setup.py\",",
+      "code_snippet": "\"quantum: marks tests that require quantum hardware\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1271,7 +1714,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 154,
-      "code_snippet": "[tool.coverage.report]",
+      "code_snippet": "[tool.coverage.run]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1281,7 +1724,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 155,
-      "code_snippet": "exclude_lines = [",
+      "code_snippet": "source = [\"quantum_hyper_search\"]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1291,7 +1734,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 156,
-      "code_snippet": "\"pragma: no cover\",",
+      "code_snippet": "omit = [",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1301,7 +1744,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 157,
-      "code_snippet": "\"def __repr__\",",
+      "code_snippet": "\"*/tests/*\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1311,7 +1754,7 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 158,
-      "code_snippet": "\"raise AssertionError\",",
+      "code_snippet": "\"*/test_*\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
     },
@@ -1321,6 +1764,76 @@
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
       "line_number": 159,
+      "code_snippet": "\"setup.py\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 160,
+      "code_snippet": "]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 162,
+      "code_snippet": "[tool.coverage.report]",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 163,
+      "code_snippet": "exclude_lines = [",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 164,
+      "code_snippet": "\"pragma: no cover\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 165,
+      "code_snippet": "\"def __repr__\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 166,
+      "code_snippet": "\"raise AssertionError\",",
+      "recommendation": "",
+      "cwe_id": "CWE-1104"
+    },
+    {
+      "severity": "low",
+      "category": "dependency_management",
+      "description": "Unpinned dependency version",
+      "file_path": "pyproject.toml",
+      "line_number": 167,
       "code_snippet": "\"raise NotImplementedError\",",
       "recommendation": "",
       "cwe_id": "CWE-1104"
@@ -1330,7 +1843,7 @@
       "category": "dependency_management",
       "description": "Unpinned dependency version",
       "file_path": "pyproject.toml",
-      "line_number": 161,
+      "line_number": 169,
       "code_snippet": "]",
       "recommendation": "",
       "cwe_id": "CWE-1104"
