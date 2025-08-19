@@ -1,0 +1,2 @@
+API_KEY = "placeholder-key-removed-for-security"
+SECRET_TOKEN = "placeholder-token-removed"
