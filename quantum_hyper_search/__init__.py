@@ -12,13 +12,29 @@ from .core.base import QuantumBackend
 from .core.qubo_encoder import QUBOEncoder
 from .backends.backend_factory import get_backend
 
-__version__ = "0.1.0"
-__author__ = "Daniel Schmidt"
-__email__ = "daniel@terragonlabs.com"
+# Security Framework Integration
+from .security import (
+    QuantumSecurityFramework,
+    SecurityPolicy,
+    ComplianceManager,
+    EncryptionManager,
+    AuthenticationManager,
+    AuthorizationManager
+)
+
+__version__ = "1.0.0"
+__author__ = "Terragon Labs"
+__email__ = "contact@terragonlabs.com"
 
 __all__ = [
     "QuantumHyperSearch",
-    "QuantumBackend",
+    "QuantumBackend", 
     "QUBOEncoder",
     "get_backend",
+    "QuantumSecurityFramework",
+    "SecurityPolicy",
+    "ComplianceManager",
+    "EncryptionManager",
+    "AuthenticationManager",
+    "AuthorizationManager",
 ]
