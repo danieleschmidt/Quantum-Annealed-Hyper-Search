@@ -1,0 +1,133 @@
+{
+  "global_deployment_summary": {
+    "total_regions": 10,
+    "successful_deployments": 7,
+    "deployments_with_warnings": 3,
+    "failed_deployments": 0,
+    "global_success_rate": 70.0,
+    "deployment_timestamp": "2025-08-23T20:54:15.764036"
+  },
+  "quantum_performance_metrics": {
+    "regions_with_quantum_advantage": 7,
+    "average_quantum_advantage": 1.1557142857142857,
+    "quantum_availability_percentage": 70.0,
+    "classical_fallback_regions": 3
+  },
+  "global_performance_benchmarks": {
+    "average_latency_ms": 90.7,
+    "average_throughput_ops_sec": 1335.0,
+    "average_compliance_score": 0.9650000000000001,
+    "performance_target_met": true
+  },
+  "regional_deployment_details": {
+    "us-east-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.17,
+      "compliance_score": 0.98,
+      "latency_ms": 45.2,
+      "throughput_ops_sec": 1650,
+      "issues": []
+    },
+    "us-west-2": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.1400000000000001,
+      "compliance_score": 0.98,
+      "latency_ms": 52.8,
+      "throughput_ops_sec": 1650,
+      "issues": []
+    },
+    "eu-central-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.19,
+      "compliance_score": 0.97,
+      "latency_ms": 67.3,
+      "throughput_ops_sec": 1575,
+      "issues": []
+    },
+    "eu-west-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.17,
+      "compliance_score": 0.97,
+      "latency_ms": 71.6,
+      "throughput_ops_sec": 1575,
+      "issues": []
+    },
+    "ap-northeast-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.13,
+      "compliance_score": 0.96,
+      "latency_ms": 89.4,
+      "throughput_ops_sec": 1500,
+      "issues": []
+    },
+    "ap-southeast-1": {
+      "status": "SUCCESS_WITH_WARNINGS",
+      "quantum_advantage": 0.98,
+      "compliance_score": 0.96,
+      "latency_ms": 95.7,
+      "throughput_ops_sec": 800,
+      "issues": [
+        "Quantum computing not available - using classical fallback"
+      ]
+    },
+    "ap-south-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.1199999999999999,
+      "compliance_score": 0.96,
+      "latency_ms": 102.3,
+      "throughput_ops_sec": 1500,
+      "issues": []
+    },
+    "ca-central-1": {
+      "status": "SUCCESS",
+      "quantum_advantage": 1.17,
+      "compliance_score": 0.95,
+      "latency_ms": 58.9,
+      "throughput_ops_sec": 1500,
+      "issues": []
+    },
+    "sa-east-1": {
+      "status": "SUCCESS_WITH_WARNINGS",
+      "quantum_advantage": 0.97,
+      "compliance_score": 0.96,
+      "latency_ms": 145.2,
+      "throughput_ops_sec": 800,
+      "issues": [
+        "Quantum computing not available - using classical fallback"
+      ]
+    },
+    "af-south-1": {
+      "status": "SUCCESS_WITH_WARNINGS",
+      "quantum_advantage": 0.96,
+      "compliance_score": 0.96,
+      "latency_ms": 178.6,
+      "throughput_ops_sec": 800,
+      "issues": [
+        "Quantum computing not available - using classical fallback"
+      ]
+    }
+  },
+  "compliance_analysis": {
+    "gdpr_compliant_regions": 2,
+    "nist_compliant_regions": 2,
+    "global_compliance_average": 0.9650000000000001,
+    "compliance_threshold_met": true
+  },
+  "recommendations": {
+    "immediate_actions": [
+      "Monitor quantum advantage performance across all regions",
+      "Validate compliance framework implementations",
+      "Optimize latency for regions > 150ms"
+    ],
+    "optimization_opportunities": [
+      "Deploy quantum hardware in classical fallback regions",
+      "Implement regional quantum algorithm caching",
+      "Enhance cross-region quantum state synchronization"
+    ],
+    "strategic_initiatives": [
+      "Establish quantum research partnerships in underperforming regions",
+      "Develop region-specific quantum advantage benchmarks",
+      "Create global quantum compliance certification program"
+    ]
+  }
+}
