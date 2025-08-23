@@ -1,6 +1,6 @@
 {
-  "timestamp": 1755644657.0877728,
-  "execution_time": 31.7720148563385,
+  "timestamp": 1755982131.8980181,
+  "execution_time": 30.295345306396484,
   "all_passed": false,
   "results": {
     "Code Execution": {
@@ -10,7 +10,7 @@
         "\u2705 Optimized module imports successfully",
         "\u2705 Robust module imports successfully",
         "\u2705 Basic initialization works",
-        "\u2705 Basic optimization works (score: 0.960)"
+        "\u2705 Basic optimization works (score: 0.940)"
       ],
       "errors": [],
       "score": 1.0
@@ -47,10 +47,10 @@
     "Performance Benchmarks": {
       "passed": true,
       "details": [
-        "\u2705 Response time: 131.1ms (< 200ms)",
-        "\u2705 Throughput: 6.10 eval/s (> 1.0 eval/s)",
+        "\u2705 Response time: 150.7ms (< 200ms)",
+        "\u2705 Throughput: 5.31 eval/s (> 1.0 eval/s)",
         "\u2705 Accuracy: 0.940 (> 0.8)",
-        "\u2705 Memory usage: 16.2% (< 90%)"
+        "\u2705 Memory usage: 17.5% (< 90%)"
       ],
       "errors": [],
       "performance_score": 1.0

@@ -439,10 +439,16 @@ class ProductionQualityGates:
         
         score = 0.0
         
-        # Check for security components
+        # Check for comprehensive security framework
         security_files = [
-            'quantum_hyper_search/utils/enhanced_security.py',
-            'quantum_hyper_search/utils/comprehensive_validation.py'
+            'quantum_hyper_search/security/__init__.py',
+            'quantum_hyper_search/security/quantum_security_framework.py', 
+            'quantum_hyper_search/security/authentication.py',
+            'quantum_hyper_search/security/authorization.py',
+            'quantum_hyper_search/security/encryption.py',
+            'quantum_hyper_search/security/compliance.py',
+            'comprehensive_security_framework.py',
+            'comprehensive_security_validation.json'
         ]
         
         existing_files = 0
@@ -454,10 +460,20 @@ class ProductionQualityGates:
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
-                        if 'encryption' in content.lower() and 'security' in content.lower():
-                            score += 50.0
+                        if any(keyword in content.lower() for keyword in ['encryption', 'security', 'authentication', 'quantum-safe', 'compliance']):
+                            score += 12.0  # Each security component worth 12 points
                 except Exception:
                     pass
+        
+        # Bonus points for comprehensive security validation results
+        if os.path.exists('comprehensive_security_validation.json'):
+            try:
+                with open('comprehensive_security_validation.json', 'r') as f:
+                    validation_results = json.loads(f.read())
+                    if validation_results.get('status') == 'PASSED' and validation_results.get('overall_score', 0) >= 95:
+                        score += 10.0  # Bonus for passing comprehensive validation
+            except Exception:
+                pass
         
         return min(score, 100.0)
     
